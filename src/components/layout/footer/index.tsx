@@ -45,7 +45,7 @@ const MainContentFooter: FC = () => {
         </div>
       </Footer>
       <p className="my-8 text-center text-sm text-gray-500">
-        &copy; 2019-2022 Flowbite.com. All rights reserved.
+        &copy; 2023 Chainspair.com. All rights reserved.
       </p>
     </>
   );

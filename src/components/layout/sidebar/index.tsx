@@ -45,13 +45,13 @@ const LayoutSidebar: FC = function () {
                 Dashboard
               </Sidebar.Item>
               <Sidebar.Item
-                href="/e-commerce/products"
+                href="/admin/prescriptions"
                 icon={HiShoppingBag}
                 className={
-                  "/e-commerce/products" === currentPage ? "bg-gray-100" : ""
+                  "/admin/prescriptions" === currentPage ? "bg-gray-100" : ""
                 }
               >
-                Products
+                Prescriptions
               </Sidebar.Item>
               <Sidebar.Item
                 href="/users/list"
@@ -60,30 +60,15 @@ const LayoutSidebar: FC = function () {
               >
                 Users list
               </Sidebar.Item>
-              <Sidebar.Item href="/authentication/sign-in" icon={HiLogin}>
-                Sign in
-              </Sidebar.Item>
-              <Sidebar.Item href="/authentication/sign-up" icon={HiPencil}>
-                Sign up
-              </Sidebar.Item>
             </Sidebar.ItemGroup>
             <Sidebar.ItemGroup>
-              <Sidebar.Item
-                href="https://github.com/themesberg/flowbite-react/"
-                icon={HiClipboard}
-              >
+              <Sidebar.Item href="/" icon={HiClipboard}>
                 Docs
               </Sidebar.Item>
-              <Sidebar.Item
-                href="https://flowbite-react.com/"
-                icon={HiCollection}
-              >
+              <Sidebar.Item href="/" icon={HiCollection}>
                 Components
               </Sidebar.Item>
-              <Sidebar.Item
-                href="https://github.com/themesberg/flowbite-react/issues"
-                icon={HiInformationCircle}
-              >
+              <Sidebar.Item href="/" icon={HiInformationCircle}>
                 Help
               </Sidebar.Item>
             </Sidebar.ItemGroup>
