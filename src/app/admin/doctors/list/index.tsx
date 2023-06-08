@@ -1,18 +1,23 @@
 "use client";
 import { Doctor } from "@/interfaces/doctor";
 import { Table } from "flowbite-react";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import EditDoctorModal from "../edit";
 import DeleteDoctorModal from "../delete";
+import AddDoctorModal from "../add";
 
 interface DoctorListProps {
   data: Doctor[];
 }
 
 const DoctorList: FC<DoctorListProps> = ({ data }) => {
+  const [doctors, setDoctors] = useState(data);
   return (
     <>
+      <div className="flex justify-end pr-10 bg-white w-full">
+        <AddDoctorModal />
+      </div>
       <div className="flex flex-col">
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
@@ -26,8 +31,8 @@ const DoctorList: FC<DoctorListProps> = ({ data }) => {
                   <Table.HeadCell>Actions</Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y divide-gray-200 bg-white  ">
-                  {data.map((item: Doctor, index: number) => (
-                    <Table.Row className="hover:bg-gray-100 ">
+                  {doctors.map((item: Doctor, index: number) => (
+                    <Table.Row className="hover:bg-gray-100 " key={index}>
                       <Table.Cell className="mr-12 flex items-center space-x-6 whitespace-nowrap p-4 lg:mr-0">
                         <div className="text-sm font-normal text-gray-500 ">
                           <div className="text-base font-semibold text-gray-900 ">
