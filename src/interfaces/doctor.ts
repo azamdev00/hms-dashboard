@@ -1,4 +1,4 @@
-export interface Doctor {
+export interface AddDoctor {
   fullName: string;
   cnic: string;
   email: string;
@@ -8,8 +8,11 @@ export interface Doctor {
   city: string;
   state: string;
   speciality: string;
-  rating: number;
   yearOfExperience: number;
+}
+
+export interface Doctor extends AddDoctor {
+  rating: number;
   reviews: Review[];
 }
 

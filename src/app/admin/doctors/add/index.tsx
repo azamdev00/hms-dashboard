@@ -1,9 +1,30 @@
-import { Button, Label, Modal, TextInput } from "flowbite-react";
+import { AddDoctor } from "@/interfaces/doctor";
+import { Button, Label, Modal } from "flowbite-react";
 import { FC, useState } from "react";
+import { useForm } from "react-hook-form";
 import { HiPlus } from "react-icons/hi";
+import { joiResolver } from "@hookform/resolvers/joi";
+import { DoctorSchema } from "@/validations/doctor";
 
 const AddDoctorModal: FC = function () {
   const [isOpen, setOpen] = useState(false);
+
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm<AddDoctor>({
+    resolver: joiResolver(DoctorSchema, {
+      errors: { wrap: { label: "" } },
+      abortEarly: false,
+    }),
+  });
+
+  const handleAddDoctor = (data: AddDoctor) => {
+    console.log(data);
+    reset();
+  };
 
   return (
     <>
@@ -14,76 +35,171 @@ const AddDoctorModal: FC = function () {
         </div>
       </Button>
       <Modal onClose={() => setOpen(false)} show={isOpen}>
-        <Modal.Header className="border-b border-gray-200 !p-6 ">
-          <strong>Add new user</strong>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div>
-              <Label htmlFor="firstName">First name</Label>
-              <div className="mt-1">
-                <TextInput
-                  id="firstName"
-                  name="firstName"
-                  placeholder="Bonnie"
-                />
+        <form onSubmit={handleSubmit(handleAddDoctor)}>
+          <Modal.Header className="border-b border-gray-200 !p-6 ">
+            <strong>Add New Doctor</strong>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div>
+                <Label>Full Name</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Full Name"
+                    {...register("fullName")}
+                  />
+                  {errors.fullName && (
+                    <div className="text-red-600 text-sm">
+                      {errors.fullName.message}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <Label>Email</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="example@domain.com"
+                    {...register("email")}
+                  />
+                  {errors.email && (
+                    <div className="text-red-600 text-sm">
+                      {errors.email.message}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Label>Phone number</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="03*********"
+                    {...register("mobile")}
+                  />
+                  {errors.mobile && (
+                    <div className="text-red-600 text-sm">
+                      {errors.mobile.message}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Label>CNIC</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="12345-1234567-1"
+                    {...register("cnic")}
+                  />
+                  {errors.cnic && (
+                    <div className="text-red-600 text-sm">
+                      {errors.cnic.message}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Label>Password</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Password"
+                    {...register("password")}
+                  />
+                  {errors.password && (
+                    <div className="text-red-600 text-sm">
+                      {errors.password.message}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Label>address</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Phase-A"
+                    {...register("address")}
+                  />
+                  {errors.address && (
+                    <div className="text-red-600 text-sm">
+                      {errors.address.message}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Label>city</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Bharia Town"
+                    {...register("city")}
+                  />
+                  {errors.city && (
+                    <div className="text-red-600 text-sm">
+                      {errors.city.message}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Label>state</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Islamabad"
+                    {...register("state")}
+                  />
+                  {errors.state && (
+                    <div className="text-red-600 text-sm">
+                      {errors.state.message}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Label>Specialization</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Cardiologist"
+                    {...register("speciality")}
+                  />
+                  {errors.speciality && (
+                    <div className="text-red-600 text-sm">
+                      {errors.speciality.message}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Label>Year Of Experience</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="00"
+                    {...register("yearOfExperience")}
+                  />
+                  {errors.yearOfExperience && (
+                    <div className="text-red-600 text-sm">
+                      {errors.yearOfExperience.message}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-            <div>
-              <Label htmlFor="lastName">Last name</Label>
-              <div className="mt-1">
-                <TextInput id="lastName" name="lastName" placeholder="Green" />
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <div className="mt-1">
-                <TextInput
-                  id="email"
-                  name="email"
-                  placeholder="example@company.com"
-                  type="email"
-                />
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="phone">Phone number</Label>
-              <div className="mt-1">
-                <TextInput
-                  id="phone"
-                  name="phone"
-                  placeholder="e.g., +(12)3456 789"
-                  type="tel"
-                />
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="department">Department</Label>
-              <div className="mt-1">
-                <TextInput
-                  id="department"
-                  name="department"
-                  placeholder="Development"
-                />
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="company">Company</Label>
-              <div className="mt-1">
-                <TextInput
-                  id="company"
-                  name="company"
-                  placeholder="Somewhere"
-                />
-              </div>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button color="primary" onClick={() => setOpen(false)}>
-            Add user
-          </Button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button color="primary" type="submit">
+              Add Doctor
+            </Button>
+          </Modal.Footer>
+        </form>
       </Modal>
     </>
   );
