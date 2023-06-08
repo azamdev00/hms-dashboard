@@ -1,14 +1,8 @@
 "use client";
 import { Doctor } from "@/interfaces/doctor";
-import { Button, Label, Modal, Table, TextInput } from "flowbite-react";
-import { FC, useState } from "react";
-import {
-  HiChevronLeft,
-  HiChevronRight,
-  HiOutlineExclamationCircle,
-  HiOutlinePencilAlt,
-  HiTrash,
-} from "react-icons/hi";
+import { Table } from "flowbite-react";
+import { FC } from "react";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import EditDoctorModal from "../edit";
 import DeleteDoctorModal from "../delete";
 

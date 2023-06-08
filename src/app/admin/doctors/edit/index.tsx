@@ -2,7 +2,9 @@ import { Button, Label, Modal, TextInput } from "flowbite-react";
 import { FC, useState } from "react";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 
-const EditDoctorModal: FC = function () {
+interface EditProps {}
+
+const EditDoctorModal: FC<EditProps> = ({}) => {
   const [isOpen, setOpen] = useState(false);
 
   return (

@@ -2,7 +2,9 @@ import { Button, Modal } from "flowbite-react";
 import { FC, useState } from "react";
 import { HiOutlineExclamationCircle, HiTrash } from "react-icons/hi";
 
-const DeleteDoctorModal: FC = function () {
+interface DeleteProps {}
+
+const DeleteDoctorModal: FC<DeleteProps> = ({}) => {
   const [isOpen, setOpen] = useState(false);
 
   return (
