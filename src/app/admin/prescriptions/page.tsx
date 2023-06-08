@@ -1,32 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 "use client";
 
-import {
-  Breadcrumb,
-  Button,
-  Checkbox,
-  Label,
-  Modal,
-  Table,
-  TextInput,
-} from "flowbite-react";
 import type { FC } from "react";
-import { useState } from "react";
-import {
-  HiChevronLeft,
-  HiChevronRight,
-  HiCog,
-  HiDocumentDownload,
-  HiDotsVertical,
-  HiExclamationCircle,
-  HiHome,
-  HiOutlineExclamationCircle,
-  HiOutlinePencilAlt,
-  HiPlus,
-  HiTrash,
-} from "react-icons/hi";
 
-const UserListPage: FC = () => {
+const Prescriptions: FC = () => {
   return (
     <>
       <div className="block items-center justify-between border-b border-gray-200 bg-white p-4">
@@ -42,4 +19,4 @@ const UserListPage: FC = () => {
   );
 };
 
-export default UserListPage;
+export default Prescriptions;

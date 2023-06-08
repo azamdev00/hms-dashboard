@@ -54,11 +54,13 @@ const LayoutSidebar: FC = function () {
                 Prescriptions
               </Sidebar.Item>
               <Sidebar.Item
-                href="/users/list"
+                href="/admin/doctors"
                 icon={HiUsers}
-                className={"/users/list" === currentPage ? "bg-gray-100" : ""}
+                className={
+                  "/admin/doctors" === currentPage ? "bg-gray-100" : ""
+                }
               >
-                Users list
+                Doctors
               </Sidebar.Item>
             </Sidebar.ItemGroup>
             <Sidebar.ItemGroup>
