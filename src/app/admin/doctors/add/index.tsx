@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { HiPlus } from "react-icons/hi";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { DoctorSchema } from "@/validations/doctor";
+import { toast } from "react-toastify";
+import { fetchAPIPOSTRequest } from "@/config";
+import { ResponseObject } from "@/interfaces/response";
 
 const AddDoctorModal: FC = function () {
   const [isOpen, setOpen] = useState(false);
@@ -21,8 +24,21 @@ const AddDoctorModal: FC = function () {
     }),
   });
 
-  const handleAddDoctor = (data: AddDoctor) => {
+  const handleAddDoctor = async (postdata: AddDoctor) => {
+    const id = toast.loading("Adding Doctor");
+    const data: ResponseObject = await fetchAPIPOSTRequest(
+      "/auth/doctor",
+      postdata
+    );
     console.log(data);
+    const status: "error" | "success" =
+      data.status === "fail" || data.status === "error" ? "error" : "success";
+    toast.update(id, {
+      render: data.message,
+      type: status,
+      isLoading: false,
+      autoClose: 5000,
+    });
     reset();
   };
 

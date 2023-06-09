@@ -6,7 +6,7 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import EditDoctorModal from "../edit";
 import DeleteDoctorModal from "../delete";
 import AddDoctorModal from "../add";
-
+import { ToastContainer } from "react-toastify";
 interface DoctorListProps {
   data: Doctor[];
 }
@@ -67,6 +67,17 @@ const DoctorList: FC<DoctorListProps> = ({ data }) => {
         </div>
       </div>
       <Pagination />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 };

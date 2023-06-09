@@ -3,6 +3,7 @@ import MainContentFooter from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import LayoutSidebar from "@/components/layout/sidebar";
 import type { FC, PropsWithChildren } from "react";
+import { ToastContainer } from "react-toastify";
 
 interface NavbarSidebarLayoutProps {
   isFooter?: boolean;
@@ -35,6 +36,17 @@ const AdminLayout: FC<PropsWithChildren<NavbarSidebarLayoutProps>> = ({
         <LayoutSidebar />
         <MainContent isFooter={isFooter}>{children}</MainContent>
       </div>
+      <ToastContainer
+        position="top-right"
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 };
