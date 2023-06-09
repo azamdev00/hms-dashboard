@@ -5,17 +5,14 @@ export const fetchAPIGetRequest = async (path: string) => {
   const parseData = store ? JSON.parse(store) : "";
   const { token } = parseData?.state;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin${path}`,
-    {
-      cache: "no-store",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + token,
-      },
-    }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/${path}`, {
+    cache: "no-store",
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "Bearer " + token,
+    },
+  });
 
   const data: ResponseObject = await res.json();
 
@@ -30,18 +27,15 @@ export const fetchAPIPOSTRequest = async (
   const parseData = store ? JSON.parse(store) : "";
   const { token } = parseData?.state;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin${path}`,
-    {
-      cache: "no-store",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(body),
-    }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/${path}`, {
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(body),
+  });
 
   const data: ResponseObject = await res.json();
 
@@ -56,18 +50,15 @@ export const fetchAPIPUTRequest = async (
   const parseData = store ? JSON.parse(store) : "";
   const { token } = parseData?.state;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin${path}`,
-    {
-      cache: "no-store",
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(body),
-    }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/${path}`, {
+    cache: "no-store",
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(body),
+  });
 
   const data: ResponseObject = await res.json();
 

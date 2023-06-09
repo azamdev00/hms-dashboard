@@ -1,4 +1,4 @@
-import { AddDoctor } from "@/interfaces/doctor";
+import { AddDoctor, Doctor } from "@/interfaces/doctor";
 import { Button, Label, Modal } from "flowbite-react";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,7 +9,11 @@ import { toast } from "react-toastify";
 import { fetchAPIPOSTRequest } from "@/config";
 import { ResponseObject } from "@/interfaces/response";
 
-const AddDoctorModal: FC = function () {
+interface AddDoctorProps {
+  setDoctors: Function;
+}
+
+const AddDoctorModal: FC<AddDoctorProps> = ({ setDoctors }) => {
   const [isOpen, setOpen] = useState(false);
 
   const {
@@ -26,20 +30,23 @@ const AddDoctorModal: FC = function () {
 
   const handleAddDoctor = async (postdata: AddDoctor) => {
     const id = toast.loading("Adding Doctor");
-    const data: ResponseObject = await fetchAPIPOSTRequest(
-      "/auth/doctor",
-      postdata
-    );
+    const data: ResponseObject = await fetchAPIPOSTRequest("doctor", postdata);
     console.log(data);
     const status: "error" | "success" =
       data.status === "fail" || data.status === "error" ? "error" : "success";
+
+    if (status === "success")
+      setDoctors((prev: Doctor[]) => [...prev, data.items]);
     toast.update(id, {
       render: data.message,
       type: status,
       isLoading: false,
       autoClose: 5000,
     });
-    reset();
+    if (status === "success") {
+      reset();
+      setOpen((prev: boolean) => !prev);
+    }
   };
 
   return (

@@ -16,7 +16,7 @@ const DoctorList: FC<DoctorListProps> = ({ data }) => {
   return (
     <>
       <div className="flex justify-end pr-10 bg-white w-full">
-        <AddDoctorModal />
+        <AddDoctorModal setDoctors={setDoctors} />
       </div>
       <div className="flex flex-col">
         <div className="overflow-x-auto">
