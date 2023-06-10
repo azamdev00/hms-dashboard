@@ -43,13 +43,13 @@ const DoctorList: FC<DoctorListProps> = ({ data }) => {
                           </div>
                         </div>
                       </Table.Cell>
-                      <Table.Cell className="whitespace-nowrap p-4 text-base font-medium text-gray-900 ">
+                      <Table.Cell className="whitespace-nowrap p-4 text-sm font-medium text-gray-900 ">
                         {item.speciality}
                       </Table.Cell>
-                      <Table.Cell className="whitespace-nowrap p-4 text-base font-medium text-gray-900 ">
+                      <Table.Cell className="whitespace-nowrap p-4 text-sm font-medium text-gray-900 ">
                         {item.city}
                       </Table.Cell>
-                      <Table.Cell className="whitespace-nowrap p-4 text-base font-normal text-gray-900 ">
+                      <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 ">
                         {item.yearOfExperience}
                       </Table.Cell>
                       <Table.Cell>

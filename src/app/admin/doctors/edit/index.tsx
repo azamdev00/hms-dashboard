@@ -11,7 +11,7 @@ const EditDoctorModal: FC<EditProps> = ({}) => {
     <>
       <Button color="primary" onClick={() => setOpen(true)}>
         <div className="flex items-center gap-x-2">
-          <HiOutlinePencilAlt className="text-lg" />
+          <HiOutlinePencilAlt className="text-base" />
           Edit user
         </div>
       </Button>
