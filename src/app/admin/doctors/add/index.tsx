@@ -31,7 +31,6 @@ const AddDoctorModal: FC<AddDoctorProps> = ({ setDoctors }) => {
   const handleAddDoctor = async (postdata: AddDoctor) => {
     const id = toast.loading("Adding Doctor");
     const data: ResponseObject = await fetchAPIPOSTRequest("doctor", postdata);
-    console.log(data);
     const status: "error" | "success" =
       data.status === "fail" || data.status === "error" ? "error" : "success";
 

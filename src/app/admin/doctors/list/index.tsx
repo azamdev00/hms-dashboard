@@ -66,7 +66,7 @@ const DoctorList: FC<DoctorListProps> = ({ data }) => {
           </div>
         </div>
       </div>
-      <Pagination />
+      <Pagination count={doctors?.length} />
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -84,7 +84,11 @@ const DoctorList: FC<DoctorListProps> = ({ data }) => {
 
 export default DoctorList;
 
-export const Pagination: FC = function () {
+interface PaginationProps {
+  count: number;
+}
+
+export const Pagination: FC<PaginationProps> = ({ count }) => {
   return (
     <div className="sticky right-0 bottom-0 w-full items-center border-t border-gray-200 bg-white p-4   sm:flex sm:justify-between">
       <div className="mb-4 flex items-center sm:mb-0">
@@ -106,7 +110,7 @@ export const Pagination: FC = function () {
           Showing&nbsp;
           <span className="font-semibold text-gray-900 ">1-20</span>
           &nbsp;of&nbsp;
-          <span className="font-semibold text-gray-900 ">2290</span>
+          <span className="font-semibold text-gray-900 ">{count}</span>
         </span>
       </div>
     </div>
