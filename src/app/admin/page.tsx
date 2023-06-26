@@ -165,7 +165,6 @@ const AddUserModal: FC = function () {
               <Label htmlFor="phone">Phone number</Label>
               <div className="mt-1">
                 <TextInput
-                  id="phone"
                   name="phone"
                   placeholder="e.g., +(12)3456 789"
                   type="tel"
@@ -317,7 +316,6 @@ const EditUserModal: FC = function () {
               <Label htmlFor="phone">Phone number</Label>
               <div className="mt-1">
                 <TextInput
-                  id="phone"
                   name="phone"
                   placeholder="e.g., +(12)3456 789"
                   type="tel"

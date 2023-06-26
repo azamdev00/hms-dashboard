@@ -4,7 +4,7 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 
 interface EditProps {}
 
-const EditDoctorModal: FC<EditProps> = ({}) => {
+const EditPatientModal: FC<EditProps> = ({}) => {
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -112,4 +112,4 @@ const EditDoctorModal: FC<EditProps> = ({}) => {
   );
 };
 
-export default EditDoctorModal;
+export default EditPatientModal;

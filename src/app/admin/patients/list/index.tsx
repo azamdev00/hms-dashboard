@@ -1,0 +1,123 @@
+"use client";
+
+import { Table } from "flowbite-react";
+import { FC, useState } from "react";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import EditPatientModal from "../edit";
+import DeletePatientModal from "../delete";
+import AddDoctorModal from "../add";
+import { ToastContainer } from "react-toastify";
+import { Patient } from "@/interfaces/patient";
+interface PatientListProps {
+  data: Patient[];
+}
+
+const PatientList: FC<PatientListProps> = ({ data }) => {
+  const [patients, setPatients] = useState(data);
+  return (
+    <>
+      <div className="flex justify-end pr-10 bg-white w-full">
+        <AddDoctorModal setPatients={setPatients} />
+      </div>
+      <div className="flex flex-col">
+        <div className="overflow-x-auto">
+          <div className="inline-block min-w-full align-middle">
+            <div className="overflow-hidden shadow">
+              <Table className="min-w-full divide-y divide-gray-200 ">
+                <Table.Head className="bg-gray-100 ">
+                  <Table.HeadCell>Name</Table.HeadCell>
+                  <Table.HeadCell>CNIC</Table.HeadCell>
+                  <Table.HeadCell>Mobile</Table.HeadCell>
+                  <Table.HeadCell>City</Table.HeadCell>
+                  <Table.HeadCell>Address</Table.HeadCell>
+                  <Table.HeadCell>Action</Table.HeadCell>
+                </Table.Head>
+                <Table.Body className="divide-y divide-gray-200 bg-white  ">
+                  {patients?.map((item: Patient, index: number) => (
+                    <Table.Row className="hover:bg-gray-100 " key={index}>
+                      <Table.Cell className="mr-12 flex items-center space-x-6 whitespace-nowrap p-4 lg:mr-0">
+                        <div className="text-sm font-normal text-gray-500 ">
+                          <div className="text-base font-semibold text-gray-900 ">
+                            {item.firstName + " " + item.lastName}
+                          </div>
+                          <div className="text-sm font-normal text-gray-500 ">
+                            {item?.email}
+                          </div>
+                        </div>
+                      </Table.Cell>
+                      <Table.Cell className="whitespace-nowrap p-4 text-sm font-medium text-gray-900 ">
+                        {item.cnic}
+                      </Table.Cell>
+                      <Table.Cell className="whitespace-nowrap p-4 text-sm font-medium text-gray-900 ">
+                        {item.mobile}
+                      </Table.Cell>
+                      <Table.Cell className="whitespace-nowrap p-4 text-sm font-medium text-gray-900 ">
+                        {item.city}
+                      </Table.Cell>
+                      <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 ">
+                        {item.address}
+                      </Table.Cell>
+                      <Table.Cell>
+                        <div className="flex items-center gap-x-3 whitespace-nowrap">
+                          <EditPatientModal />
+                          <DeletePatientModal />
+                        </div>
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Pagination count={patients?.length} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </>
+  );
+};
+
+export default PatientList;
+
+interface PaginationProps {
+  count: number;
+}
+
+export const Pagination: FC<PaginationProps> = ({ count }) => {
+  return (
+    <div className="sticky right-0 bottom-0 w-full items-center border-t border-gray-200 bg-white p-4   sm:flex sm:justify-between">
+      <div className="mb-4 flex items-center sm:mb-0">
+        <a
+          href="#"
+          className="inline-flex cursor-pointer justify-center rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900   "
+        >
+          <span className="sr-only">Previous page</span>
+          <HiChevronLeft className="text-2xl" />
+        </a>
+        <a
+          href="#"
+          className="mr-2 inline-flex cursor-pointer justify-center rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900   "
+        >
+          <span className="sr-only">Next page</span>
+          <HiChevronRight className="text-2xl" />
+        </a>
+        <span className="text-sm font-normal text-gray-500 ">
+          Showing&nbsp;
+          <span className="font-semibold text-gray-900 ">1-20</span>
+          &nbsp;of&nbsp;
+          <span className="font-semibold text-gray-900 ">{count}</span>
+        </span>
+      </div>
+    </div>
+  );
+};
