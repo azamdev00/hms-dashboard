@@ -1,4 +1,3 @@
-import { AddDoctor, Doctor } from "@/interfaces/doctor";
 import { Button, Label, Modal } from "flowbite-react";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -8,6 +7,8 @@ import { DoctorSchema } from "@/validations/doctor";
 import { toast } from "react-toastify";
 import { fetchAPIPOSTRequest } from "@/config";
 import { ResponseObject } from "@/interfaces/response";
+import { Patient } from "@/interfaces/patient";
+import { PatientSchema } from "@/validations/patient";
 
 interface AddPatientProps {
   setPatients: Function;
@@ -21,21 +22,21 @@ const AddPatientModal: FC<AddPatientProps> = ({ setPatients }) => {
     register,
     reset,
     formState: { errors },
-  } = useForm<AddDoctor>({
-    resolver: joiResolver(DoctorSchema, {
+  } = useForm<Patient>({
+    resolver: joiResolver(PatientSchema, {
       errors: { wrap: { label: "" } },
       abortEarly: false,
     }),
   });
 
-  const handleAddDoctor = async (postdata: AddDoctor) => {
-    const id = toast.loading("Adding Doctor");
-    const data: ResponseObject = await fetchAPIPOSTRequest("doctor", postdata);
+  const handleAddPatient = async (postdata: Patient) => {
+    const id = toast.loading("Adding Patient");
+    const data: ResponseObject = await fetchAPIPOSTRequest("patient", postdata);
     const status: "error" | "success" =
       data.status === "fail" || data.status === "error" ? "error" : "success";
 
     if (status === "success")
-      setPatients((prev: Doctor[]) => [...prev, data.items]);
+      setPatients((prev: Patient[]) => [...prev, data.items]);
     toast.update(id, {
       render: data.message,
       type: status,
@@ -57,23 +58,38 @@ const AddPatientModal: FC<AddPatientProps> = ({ setPatients }) => {
         </div>
       </Button>
       <Modal onClose={() => setOpen(false)} show={isOpen}>
-        <form onSubmit={handleSubmit(handleAddDoctor)}>
+        <form onSubmit={handleSubmit(handleAddPatient)}>
           <Modal.Header className="border-b border-gray-200 !p-6 ">
             <strong>Add New Patient</strong>
           </Modal.Header>
           <Modal.Body>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
-                <Label>Full Name</Label>
+                <Label>First Name</Label>
                 <div className="mt-1">
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Full Name"
-                    {...register("fullName")}
+                    placeholder="First Name"
+                    {...register("firstName")}
                   />
-                  {errors.fullName && (
+                  {errors.firstName && (
                     <div className="text-red-600 text-sm">
-                      {errors.fullName.message}
+                      {errors.firstName.message}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Label>Last Name</Label>
+                <div className="mt-1">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Last Name"
+                    {...register("lastName")}
+                  />
+                  {errors.lastName && (
+                    <div className="text-red-600 text-sm">
+                      {errors.lastName.message}
                     </div>
                   )}
                 </div>
@@ -169,56 +185,11 @@ const AddPatientModal: FC<AddPatientProps> = ({ setPatients }) => {
                   )}
                 </div>
               </div>
-              <div>
-                <Label>state</Label>
-                <div className="mt-1">
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Islamabad"
-                    {...register("state")}
-                  />
-                  {errors.state && (
-                    <div className="text-red-600 text-sm">
-                      {errors.state.message}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div>
-                <Label>Specialization</Label>
-                <div className="mt-1">
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Cardiologist"
-                    {...register("speciality")}
-                  />
-                  {errors.speciality && (
-                    <div className="text-red-600 text-sm">
-                      {errors.speciality.message}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div>
-                <Label>Year Of Experience</Label>
-                <div className="mt-1">
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="00"
-                    {...register("yearOfExperience")}
-                  />
-                  {errors.yearOfExperience && (
-                    <div className="text-red-600 text-sm">
-                      {errors.yearOfExperience.message}
-                    </div>
-                  )}
-                </div>
-              </div>
             </div>
           </Modal.Body>
           <Modal.Footer>
             <Button color="primary" type="submit">
-              Add Doctor
+              Add Patient
             </Button>
           </Modal.Footer>
         </form>
