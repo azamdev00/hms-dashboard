@@ -69,6 +69,13 @@ const LayoutSidebar: FC = function () {
               >
                 Patients
               </Sidebar.Item>
+              <Sidebar.Item
+                href="/admin/opds"
+                icon={HiUsers}
+                className={"/admin/opds" === currentPage ? "bg-gray-100" : ""}
+              >
+                OPD
+              </Sidebar.Item>
             </Sidebar.ItemGroup>
             <Sidebar.ItemGroup>
               <Sidebar.Item href="/" icon={HiClipboard}>
