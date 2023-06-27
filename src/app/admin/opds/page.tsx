@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Opd } from "@/interfaces/opd";
 import { ResponseObject } from "@/interfaces/response";
 import type { FC } from "react";
 import OPDList from "./list";
@@ -8,13 +7,13 @@ const getData = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/opd`, {
     cache: "no-store",
   });
-  const { items }: ResponseObject = await res.json();
-  return items;
+  const data: ResponseObject = await res.json();
+  return data;
 };
 
 const Opd: FC = async () => {
-  const data: Opd[] = await getData();
-  console.log(data);
+  const { items, doctors }: ResponseObject = await getData();
+
   return (
     <>
       <div className="block items-center justify-between border-b border-gray-200 bg-white p-4">
@@ -27,7 +26,7 @@ const Opd: FC = async () => {
         </div>
       </div>
 
-      <OPDList data={data} />
+      <OPDList data={items} doctors={doctors} />
     </>
   );
 };

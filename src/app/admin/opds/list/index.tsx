@@ -5,13 +5,16 @@ import { Table } from "flowbite-react";
 import { FC, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { ToastContainer } from "react-toastify";
+import AssignDoctorModal from "../add.doctor";
+import { Doctor } from "@/interfaces/doctor";
 
 interface OPDListProps {
   data: Opd[];
+  doctors: Doctor[];
 }
 
-const OPDList: FC<OPDListProps> = ({ data }) => {
-  const [opd, setOpd] = useState(data);
+const OPDList: FC<OPDListProps> = ({ data, doctors }) => {
+  const [opd, setOpds] = useState(data);
   return (
     <>
       <div className="flex flex-col">
@@ -54,7 +57,12 @@ const OPDList: FC<OPDListProps> = ({ data }) => {
                         {item?.status}
                       </Table.Cell>
                       <Table.Cell>
-                        <div className="flex items-center gap-x-3 whitespace-nowrap"></div>
+                        <div className="flex items-center gap-x-3 whitespace-nowrap">
+                          <AssignDoctorModal
+                            setOpds={setOpds}
+                            doctors={doctors}
+                          />
+                        </div>
                       </Table.Cell>
                     </Table.Row>
                   ))}

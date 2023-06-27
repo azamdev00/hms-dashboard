@@ -1,4 +1,5 @@
 export interface AddDoctor {
+  _id: string;
   fullName: string;
   cnic: string;
   email: string;
