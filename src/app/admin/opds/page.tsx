@@ -12,7 +12,7 @@ const getData = async () => {
 };
 
 const Opd: FC = async () => {
-  const { items, doctors }: ResponseObject = await getData();
+  const { items, doctors, departments }: ResponseObject = await getData();
 
   return (
     <>
@@ -26,7 +26,7 @@ const Opd: FC = async () => {
         </div>
       </div>
 
-      <OPDList data={items} doctors={doctors} />
+      <OPDList data={items} doctors={doctors} departments={departments} />
     </>
   );
 };

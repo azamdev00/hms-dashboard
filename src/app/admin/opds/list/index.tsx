@@ -1,22 +1,28 @@
 "use client";
 
 import { Opd } from "@/interfaces/opd";
-import { Table } from "flowbite-react";
+import { Button, Table } from "flowbite-react";
 import { FC, useState } from "react";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { HiChevronLeft, HiChevronRight, HiPlus } from "react-icons/hi";
 import { ToastContainer } from "react-toastify";
 import AssignDoctorModal from "../add.doctor";
 import { Doctor } from "@/interfaces/doctor";
+import AddOPDModal from "../add.opd";
+import { Department } from "@/interfaces/department";
 
 interface OPDListProps {
   data: Opd[];
   doctors: Doctor[];
+  departments: Department[];
 }
 
-const OPDList: FC<OPDListProps> = ({ data, doctors }) => {
+const OPDList: FC<OPDListProps> = ({ data, doctors, departments }) => {
   const [opd, setOpds] = useState(data);
   return (
     <>
+      <div className="flex justify-end container">
+        <AddOPDModal setOpds={setOpds} departments={departments} />
+      </div>
       <div className="flex flex-col">
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
