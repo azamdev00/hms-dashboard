@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import type { FC } from "react";
+import JoinOpd from "./join.opd";
 
 const Dashboard: FC = () => {
   return (
@@ -13,6 +14,7 @@ const Dashboard: FC = () => {
           </div>
         </div>
       </div>
+      <JoinOpd />
     </>
   );
 };
