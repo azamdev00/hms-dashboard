@@ -46,14 +46,18 @@ const Login = function () {
         <h1 className="mb-3 text-2xl font-bold md:text-3xl">Sign in</h1>
         <form onSubmit={handleSubmit(handleLogin)}>
           <div className="mb-4 flex flex-col gap-y-3">
-            <Label htmlFor="email">Your CNIC</Label>
+            <Label htmlFor="cnic">Your CNIC</Label>
             <div className="mt-1">
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="00000-0000000-0"
                 {...register("cnic")}
+                id="cnic"
               />
             </div>
+            {errors.cnic && (
+              <div className="text-red-600 text-sm">{errors.cnic.message}</div>
+            )}
           </div>
           <div className="mb-6 flex flex-col gap-y-3">
             <Label htmlFor="password">Your password</Label>
@@ -62,8 +66,14 @@ const Login = function () {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="********"
                 {...register("password")}
+                id="password"
               />
             </div>
+            {errors.password && (
+              <div className="text-red-600 text-sm">
+                {errors.password.message}
+              </div>
+            )}
           </div>
           {/* <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center gap-x-3">
