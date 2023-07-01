@@ -6,12 +6,12 @@ export interface Opd {
   doctorId: String | null;
   nextAppointment: String | null;
   currentAppointment: String | null;
-  date: Date;
+  date: string;
   status: "Start" | "Idle" | "Closed" | "Stopped";
   currentToken: Number;
   lastToken: Number;
   inQueue: Number;
-  expectedTimeToNext: Date;
+  expectedTimeToNext: string;
   department: Department;
   doctor: Doctor;
 }

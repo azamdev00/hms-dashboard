@@ -18,6 +18,9 @@ interface OPDListProps {
 
 const OPDList: FC<OPDListProps> = ({ data, doctors, departments }) => {
   const [opd, setOpds] = useState(data);
+
+  const today = new Date().toISOString().split("T")[0];
+
   return (
     <>
       <div className="flex justify-end container">
@@ -63,12 +66,16 @@ const OPDList: FC<OPDListProps> = ({ data, doctors, departments }) => {
                         {item?.status}
                       </Table.Cell>
                       <Table.Cell>
-                        <div className="flex items-center gap-x-3 whitespace-nowrap">
-                          <AssignDoctorModal
-                            setOpds={setOpds}
-                            doctors={doctors}
-                          />
-                        </div>
+                        {item.date.split("T")[0] === today ? (
+                          <div className="flex items-center gap-x-3 whitespace-nowrap">
+                            <AssignDoctorModal
+                              setOpds={setOpds}
+                              doctors={doctors}
+                            />
+                          </div>
+                        ) : (
+                          <></>
+                        )}
                       </Table.Cell>
                     </Table.Row>
                   ))}
