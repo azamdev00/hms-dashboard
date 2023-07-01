@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-function useCookie(key: string, initialValue: string) {
+type objectOrString = object | string;
+function useCookie<T extends objectOrString>(
+  key: string,
+  initialValue?: T
+): [T, Dispatch<SetStateAction<T>>] {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
-  const [storedValue, setStoredValue] = useState(() => {
+  const [storedValue, setStoredValue] = useState<T>((): any => {
     try {
       // Get from local storage by key
       const cookieString = document.cookie;
@@ -15,7 +19,7 @@ function useCookie(key: string, initialValue: string) {
           return cookie.substring(key.length + 1);
         }
       }
-      return null;
+      return initialValue;
     } catch (err) {
       // If error also return initialValue
       console.log("Error in Cookies : ", err);
@@ -25,12 +29,12 @@ function useCookie(key: string, initialValue: string) {
   });
 
   // Return a wrapped version of useState's setter function that ...
-  // ... persists the new value to cookie.
+  // ... persists the new value to localStorage.
 
-  const setValue = (value: Function) => {
+  const setValue = (value: Function | T) => {
     try {
-      const valueToStore =
-        typeof value === "function" ? value(storedValue) : value;
+      const valueToStore: T =
+        value instanceof Function ? value(storedValue) : value;
 
       setStoredValue(valueToStore);
       const expires = new Date();

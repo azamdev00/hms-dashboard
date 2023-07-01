@@ -37,7 +37,7 @@ export const fetchAPIPOSTRequest = async (
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
     if (cookie.startsWith("polyclinic=")) {
-      token = cookie.substring(12);
+      token = cookie.substring(11);
     }
   }
 

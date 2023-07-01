@@ -1,10 +1,11 @@
 "use client";
 import { fetchAPIPOSTRequest } from "@/config";
-import useCookie from "@/hooks/useCookies";
+import useCookie from "@/hooks/use.cookie";
 import { ResponseObject } from "@/interfaces/response";
 import { LoginSchema } from "@/validations/login";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { Button, Card, Label } from "flowbite-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -15,7 +16,8 @@ interface LoginModal {
 }
 
 const Login = function () {
-  const [_, setJwt] = useCookie("polyclinic", "");
+  const [, setJwt] = useCookie("polyclinic");
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -29,6 +31,8 @@ const Login = function () {
   });
 
   const handleLogin = async (postdata: LoginModal) => {
+    setJwt("logged_out");
+
     const id = toast.loading("Loggin in...");
     const data: ResponseObject = await fetchAPIPOSTRequest(
       "auth/login",
@@ -46,8 +50,10 @@ const Login = function () {
       autoClose: 5000,
     });
 
-    if (status === "success" && data.jwt) {
+    if (status === "success") {
       setJwt(data.jwt);
+
+      if (postdata.role === "admin") router.push("/admin/dashboard");
       reset();
     }
   };
