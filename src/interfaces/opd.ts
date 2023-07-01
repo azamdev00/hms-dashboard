@@ -2,6 +2,7 @@ import { Department } from "./department";
 import { Doctor } from "./doctor";
 
 export interface Opd {
+  _id: string;
   departmentId: String;
   doctorId: String | null;
   nextAppointment: String | null;

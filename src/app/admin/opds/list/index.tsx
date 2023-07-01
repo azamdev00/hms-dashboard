@@ -18,6 +18,7 @@ interface OPDListProps {
 
 const OPDList: FC<OPDListProps> = ({ data, doctors, departments }) => {
   const [opd, setOpds] = useState(data);
+  const [opdId, setOpdId] = useState<string | null>(null);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -71,6 +72,7 @@ const OPDList: FC<OPDListProps> = ({ data, doctors, departments }) => {
                             <AssignDoctorModal
                               setOpds={setOpds}
                               doctors={doctors}
+                              opdId={item._id}
                             />
                           </div>
                         ) : (

@@ -11,10 +11,13 @@ import { Doctor } from "@/interfaces/doctor";
 interface AddDoctorProps {
   setOpds: Function;
   doctors: Doctor[];
+  opdId: string;
 }
 
-const AssignDoctorModal: FC<AddDoctorProps> = ({ setOpds, doctors }) => {
+const AssignDoctorModal: FC<AddDoctorProps> = ({ setOpds, doctors, opdId }) => {
   const [isOpen, setOpen] = useState(false);
+
+  console.log(opdId);
 
   const handleAddDoctor = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,23 +25,30 @@ const AssignDoctorModal: FC<AddDoctorProps> = ({ setOpds, doctors }) => {
     const form = e.currentTarget;
     const formData = new FormData(form);
     const formValues = Object.fromEntries(formData.entries());
-    console.log(formValues);
-    // const postData = {};
-    // const id = toast.loading("Adding Doctor");
-    // const data: ResponseObject = await fetchAPIPOSTRequest("patient", postData);
-    // const status: "error" | "success" =
-    //   data.status === "fail" || data.status === "error" ? "error" : "success";
 
-    // if (status === "success") setOpds((prev: Opd[]) => [...prev, data.items]);
-    // toast.update(id, {
-    //   render: data.message,
-    //   type: status,
-    //   isLoading: false,
-    //   autoClose: 5000,
-    // });
-    // if (status === "success") {
-    //   setOpen((prev: boolean) => !prev);
-    // }
+    const postData = { assignedDoctor: formValues.doctor, opdId };
+
+    const id = toast.loading("Adding Doctor");
+
+    const data: ResponseObject = await fetchAPIPOSTRequest(
+      "opd/doctor/assign",
+      postData
+    );
+    const status: "error" | "success" =
+      data.status === "fail" || data.status === "error" ? "error" : "success";
+
+    toast.update(id, {
+      render: data.message,
+      type: status,
+      isLoading: false,
+      autoClose: 5000,
+    });
+
+    console.log(data);
+    if (status === "success") {
+      // setOpds((prev: Opd[]) => [...prev, data.items]);
+      setOpen((prev: boolean) => !prev);
+    }
   };
 
   return (
