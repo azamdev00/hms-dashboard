@@ -1,8 +1,12 @@
 "use client";
+import { fetchAPIPOSTRequest } from "@/config";
+import useCookie from "@/hooks/useCookies";
+import { ResponseObject } from "@/interfaces/response";
 import { LoginSchema } from "@/validations/login";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { Button, Card, Label } from "flowbite-react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 interface LoginModal {
   cnic: string;
@@ -11,6 +15,7 @@ interface LoginModal {
 }
 
 const Login = function () {
+  const [_, setJwt] = useCookie("polyclinic", "");
   const {
     register,
     handleSubmit,
@@ -23,9 +28,28 @@ const Login = function () {
     }),
   });
 
-  const handleLogin = (data: LoginModal) => {
+  const handleLogin = async (postdata: LoginModal) => {
+    const id = toast.loading("Loggin in...");
+    const data: ResponseObject = await fetchAPIPOSTRequest(
+      "auth/login",
+      postdata
+    );
+    const status: "error" | "success" =
+      data.status === "fail" || data.status === "error" ? "error" : "success";
+
     console.log(data);
-    reset();
+
+    toast.update(id, {
+      render: data.message,
+      type: status,
+      isLoading: false,
+      autoClose: 5000,
+    });
+
+    if (status === "success" && data.jwt) {
+      setJwt(data.jwt);
+      reset();
+    }
   };
 
   return (

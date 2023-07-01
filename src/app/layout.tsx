@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Flowbite } from "flowbite-react";
 import theme from "@/app/flowbite-theme";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,17 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Flowbite theme={{ theme }}>{children}</Flowbite>
+        <ToastContainer
+          position="top-right"
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </body>
     </html>
   );
