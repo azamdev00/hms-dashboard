@@ -20,4 +20,9 @@ export const LoginSchema = Joi.object({
       "string.min": "Password must be at least 8 characters long.",
       "string.max": "Password cannot exceed 20 characters.",
     }),
+  role: Joi.string().valid("doctor", "admin").required().messages({
+    "any.required": "User role is required.",
+    "string.empty": "User role cannot be empty.",
+    "any.only": 'User role must be either "doctor" or "admin".',
+  }),
 });

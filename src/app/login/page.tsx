@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 interface LoginModal {
   cnic: string;
   password: string;
+  role: string;
 }
 
 const Login = function () {
@@ -75,6 +76,39 @@ const Login = function () {
               </div>
             )}
           </div>
+          <div className="mb-6 flex flex-col">
+            <h3 className="font-semibold text-gray-900 ">Identification</h3>
+
+            <div className="flex">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  value="admin"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                  {...register("role")}
+                />
+                <label className="w-full py-3 ml-2 text-sm font-medium text-gray-900 ">
+                  Admin
+                </label>
+              </div>
+
+              <div className="flex items-center pl-3">
+                <input
+                  type="radio"
+                  value="doctor"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2  "
+                  {...register("role")}
+                />
+                <label className="w-full py-3 ml-2 text-sm font-medium text-gray-900 ">
+                  Doctor
+                </label>
+              </div>
+            </div>
+            {errors.role && (
+              <div className="text-red-600 text-sm">{errors.role.message}</div>
+            )}
+          </div>
+
           {/* <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center gap-x-3">
               <Checkbox id="rememberMe" name="rememberMe" />
