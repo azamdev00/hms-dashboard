@@ -14,7 +14,6 @@ const JoinOpd: FC<JoinOpdProps> = () => {
           </p>
           <div className="flex justify-center items-center space-x-4">
             <button
-              data-modal-toggle="deleteModal"
               type="button"
               className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 "
             >
