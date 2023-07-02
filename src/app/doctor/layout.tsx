@@ -1,7 +1,7 @@
 "use client";
+import DoctorSidebar from "@/components/layout/doctor.sidebar";
 import MainContentFooter from "@/components/layout/footer";
 import Header from "@/components/layout/header";
-import AdminSidebar from "@/components/layout/admin.sidebar";
 import useCookie from "@/hooks/use.cookie";
 import { useRouter } from "next/navigation";
 import type { FC, PropsWithChildren } from "react";
@@ -27,7 +27,7 @@ const MainContent: FC<PropsWithChildren<NavbarSidebarLayoutProps>> = ({
   );
 };
 
-const AdminLayout: FC<PropsWithChildren<NavbarSidebarLayoutProps>> = ({
+const DoctorLayout: FC<PropsWithChildren<NavbarSidebarLayoutProps>> = ({
   children,
   isFooter = true,
 }) => {
@@ -39,7 +39,7 @@ const AdminLayout: FC<PropsWithChildren<NavbarSidebarLayoutProps>> = ({
     <>
       <Header />
       <div className="flex items-start pt-16">
-        <AdminSidebar />
+        <DoctorSidebar />
         <MainContent isFooter={isFooter}>{children}</MainContent>
       </div>
       <ToastContainer
@@ -57,4 +57,4 @@ const AdminLayout: FC<PropsWithChildren<NavbarSidebarLayoutProps>> = ({
   );
 };
 
-export default AdminLayout;
+export default DoctorLayout;

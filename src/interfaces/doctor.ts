@@ -1,6 +1,7 @@
 export interface AddDoctor {
   _id: string;
   fullName: string;
+  role: string;
   cnic: string;
   email: string;
   mobile: string;
