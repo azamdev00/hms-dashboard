@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FaHospitalUser } from "react-icons/fa";
 import { HiChartPie, HiUsers } from "react-icons/hi";
 import { TbEmergencyBed } from "react-icons/tb";
+import { CgProfile } from "react-icons/cg";
 
 const LayoutSidebar: FC = function () {
   const [currentPage, setCurrentPage] = useState("");
@@ -52,6 +53,13 @@ const LayoutSidebar: FC = function () {
               className={"/admin/opds" === currentPage ? "bg-gray-100" : ""}
             >
               OPD
+            </Sidebar.Item>
+            <Sidebar.Item
+              href="/admin/profile"
+              icon={CgProfile}
+              className={"/admin/profile" === currentPage ? "bg-gray-100" : ""}
+            >
+              Profile
             </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
