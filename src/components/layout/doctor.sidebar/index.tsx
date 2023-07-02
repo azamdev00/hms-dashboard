@@ -25,17 +25,19 @@ const DoctorSidebar: FC = function () {
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             <Sidebar.Item
-              href="/"
+              href="/doctor/dashboard"
               icon={HiChartPie}
-              className={"/" === currentPage ? "bg-gray-100" : ""}
+              className={
+                "/doctor/dashboard" === currentPage ? "bg-gray-100" : ""
+              }
             >
               Dashboard
             </Sidebar.Item>
 
             <Sidebar.Item
-              href="/admin/profile"
+              href="/doctor/profile"
               icon={CgProfile}
-              className={"/admin/profile" === currentPage ? "bg-gray-100" : ""}
+              className={"/doctor/profile" === currentPage ? "bg-gray-100" : ""}
             >
               Profile
             </Sidebar.Item>

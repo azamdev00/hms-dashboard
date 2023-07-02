@@ -27,9 +27,11 @@ const AdminSidebar: FC = function () {
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             <Sidebar.Item
-              href="/"
+              href="/admin/dashboard"
               icon={HiChartPie}
-              className={"/" === currentPage ? "bg-gray-100" : ""}
+              className={
+                "/admin/dashboard" === currentPage ? "bg-gray-100" : ""
+              }
             >
               Dashboard
             </Sidebar.Item>
