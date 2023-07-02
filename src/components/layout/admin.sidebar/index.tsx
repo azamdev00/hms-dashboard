@@ -2,7 +2,9 @@ import useCookie from "@/hooks/use.cookie";
 import { Sidebar } from "flowbite-react";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { HiChartPie } from "react-icons/hi";
+import { FaHospitalUser } from "react-icons/fa";
+import { HiChartPie, HiUsers } from "react-icons/hi";
+import { TbEmergencyBed } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 
 const AdminSidebar: FC = function () {
@@ -30,6 +32,27 @@ const AdminSidebar: FC = function () {
               className={"/" === currentPage ? "bg-gray-100" : ""}
             >
               Dashboard
+            </Sidebar.Item>
+            <Sidebar.Item
+              href="/admin/doctors"
+              icon={FaHospitalUser}
+              className={"/admin/doctors" === currentPage ? "bg-gray-100" : ""}
+            >
+              Doctors
+            </Sidebar.Item>
+            <Sidebar.Item
+              href="/admin/patients"
+              icon={HiUsers}
+              className={"/admin/patients" === currentPage ? "bg-gray-100" : ""}
+            >
+              Patients
+            </Sidebar.Item>
+            <Sidebar.Item
+              href="/admin/opds"
+              icon={TbEmergencyBed}
+              className={"/admin/opds" === currentPage ? "bg-gray-100" : ""}
+            >
+              OPD
             </Sidebar.Item>
             <Sidebar.Item
               href="/admin/profile"
