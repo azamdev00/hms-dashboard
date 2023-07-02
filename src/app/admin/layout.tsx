@@ -3,6 +3,7 @@ import MainContentFooter from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import LayoutSidebar from "@/components/layout/sidebar";
 import useCookie from "@/hooks/use.cookie";
+import useUserStore from "@/store/user";
 import { useRouter } from "next/navigation";
 import type { FC, PropsWithChildren } from "react";
 import { ToastContainer } from "react-toastify";
@@ -33,6 +34,9 @@ const AdminLayout: FC<PropsWithChildren<NavbarSidebarLayoutProps>> = ({
 }) => {
   const router = useRouter();
   const [jwt] = useCookie("polyclinic");
+  const { user } = useUserStore();
+
+  console.log(user);
 
   if (!jwt || jwt === "logged_out") router.push("/login");
   return (

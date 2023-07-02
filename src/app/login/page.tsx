@@ -2,6 +2,7 @@
 import { fetchAPIPOSTRequest } from "@/config";
 import useCookie from "@/hooks/use.cookie";
 import { ResponseObject } from "@/interfaces/response";
+import useUserStore from "@/store/user";
 import { LoginSchema } from "@/validations/login";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { Button, Card, Label } from "flowbite-react";
@@ -17,6 +18,7 @@ interface LoginModal {
 
 const Login = function () {
   const [, setJwt] = useCookie("polyclinic");
+  const { setUser } = useUserStore();
   const router = useRouter();
   const {
     register,
@@ -52,6 +54,7 @@ const Login = function () {
 
     if (status === "success") {
       setJwt(data.jwt);
+      setUser(data.items);
 
       if (postdata.role === "admin") router.push("/admin/dashboard");
       reset();
