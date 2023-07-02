@@ -1,3 +1,4 @@
+import useCookie from "@/hooks/use.cookie";
 import { Sidebar } from "flowbite-react";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
@@ -5,12 +6,17 @@ import { HiChartPie, HiShoppingBag, HiUsers } from "react-icons/hi";
 
 const LayoutSidebar: FC = function () {
   const [currentPage, setCurrentPage] = useState("");
+  const [, setJwt] = useCookie("polyclinic");
 
   useEffect(() => {
     const newPage = window.location.pathname;
 
     setCurrentPage(newPage);
   }, [setCurrentPage]);
+
+  const handleLogout = () => {
+    setJwt("logged_out");
+  };
 
   return (
     <Sidebar aria-label="Sidebar with multi-level dropdown example">
@@ -53,6 +59,17 @@ const LayoutSidebar: FC = function () {
               className={"/admin/opds" === currentPage ? "bg-gray-100" : ""}
             >
               OPD
+            </Sidebar.Item>
+          </Sidebar.ItemGroup>
+        </Sidebar.Items>
+        <Sidebar.Items>
+          <Sidebar.ItemGroup>
+            <Sidebar.Item
+              href="/login"
+              className={"bg-gray-400"}
+              onClick={handleLogout}
+            >
+              Logout
             </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
