@@ -31,15 +31,6 @@ const LayoutSidebar: FC = function () {
               Dashboard
             </Sidebar.Item>
             <Sidebar.Item
-              href="/admin/prescriptions"
-              icon={HiShoppingBag}
-              className={
-                "/admin/prescriptions" === currentPage ? "bg-gray-100" : ""
-              }
-            >
-              Prescriptions
-            </Sidebar.Item>
-            <Sidebar.Item
               href="/admin/doctors"
               icon={HiUsers}
               className={"/admin/doctors" === currentPage ? "bg-gray-100" : ""}
