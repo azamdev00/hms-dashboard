@@ -4,7 +4,6 @@ import { HiPlus } from "react-icons/hi";
 import { toast } from "react-toastify";
 import { fetchAPIPOSTRequest } from "@/config";
 import { ResponseObject } from "@/interfaces/response";
-import { Patient } from "@/interfaces/patient";
 import { Opd } from "@/interfaces/opd";
 import { Doctor } from "@/interfaces/doctor";
 
@@ -16,8 +15,6 @@ interface AddDoctorProps {
 
 const AssignDoctorModal: FC<AddDoctorProps> = ({ setOpds, doctors, opdId }) => {
   const [isOpen, setOpen] = useState(false);
-
-  console.log(opdId);
 
   const handleAddDoctor = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,7 +43,19 @@ const AssignDoctorModal: FC<AddDoctorProps> = ({ setOpds, doctors, opdId }) => {
 
     console.log(data);
     if (status === "success") {
-      // setOpds((prev: Opd[]) => [...prev, data.items]);
+      setOpds((prev: Opd[]) =>
+        prev.map((opd: Opd) =>
+          opd._id === opdId
+            ? {
+                ...opd,
+                doctor: {
+                  fullName: data.items?.fullName,
+                  mobile: data.items?.mobile,
+                },
+              }
+            : opd
+        )
+      );
       setOpen((prev: boolean) => !prev);
     }
   };

@@ -21,23 +21,24 @@ const AddOPDModal: FC<AddOPDProps> = ({ setOpds, departments }) => {
     const form = e.currentTarget;
     const formData = new FormData(form);
     const formValues = Object.fromEntries(formData.entries());
-    console.log(formValues);
-    // const postData = {};
-    // const id = toast.loading("Adding Doctor");
-    // const data: ResponseObject = await fetchAPIPOSTRequest("patient", postData);
-    // const status: "error" | "success" =
-    //   data.status === "fail" || data.status === "error" ? "error" : "success";
 
-    // if (status === "success") setOpds((prev: Opd[]) => [...prev, data.items]);
-    // toast.update(id, {
-    //   render: data.message,
-    //   type: status,
-    //   isLoading: false,
-    //   autoClose: 5000,
-    // });
-    // if (status === "success") {
-    //   setOpen((prev: boolean) => !prev);
-    // }
+    const id = toast.loading("Adding Doctor");
+    const data: ResponseObject = await fetchAPIPOSTRequest("opd", formValues);
+    const status: "error" | "success" =
+      data.status === "fail" || data.status === "error" ? "error" : "success";
+
+    console.log(data);
+
+    toast.update(id, {
+      render: data.message,
+      type: status,
+      isLoading: false,
+      autoClose: 5000,
+    });
+    if (status === "success") {
+      setOpds((prev: Opd[]) => [data.items, ...prev]);
+      setOpen((prev: boolean) => !prev);
+    }
   };
 
   return (
@@ -59,7 +60,7 @@ const AddOPDModal: FC<AddOPDProps> = ({ setOpds, departments }) => {
                 Select an OPD.
               </label>
               <select
-                name="doctor"
+                name="departmentId"
                 defaultValue={""}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               >
