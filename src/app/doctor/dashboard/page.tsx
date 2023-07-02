@@ -1,8 +1,32 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import type { FC } from "react";
 import JoinOpd from "./join.opd";
+import { ResponseObject } from "@/interfaces/response";
+import { cookies } from "next/headers";
 
-const Dashboard: FC = () => {
+const getData = async (token: string | undefined) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/doctor/opd`,
+    {
+      cache: "no-store",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  const { items }: ResponseObject = await res.json();
+
+  return items;
+};
+
+const Dashboard: FC = async () => {
+  const cookieStore = cookies();
+  const cookie = cookieStore.get("polyclinic");
+
+  const data = await getData(cookie?.value);
+
   return (
     <>
       <div className="block items-center justify-between border-b border-gray-200 bg-white p-4">
@@ -14,7 +38,7 @@ const Dashboard: FC = () => {
           </div>
         </div>
       </div>
-      <JoinOpd />
+      <JoinOpd opd={data} />
     </>
   );
 };

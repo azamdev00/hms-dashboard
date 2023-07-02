@@ -57,6 +57,7 @@ const Login = function () {
       setUser(data.items);
 
       if (postdata.role === "admin") router.push("/admin/dashboard");
+      if (postdata.role === "doctor") router.push("/doctor/dashboard");
       reset();
     }
   };
