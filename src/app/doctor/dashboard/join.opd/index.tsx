@@ -58,7 +58,7 @@ const JoinOpd: FC<JoinOpdProps> = ({ opd }) => {
   return (
     <div className="overflow-y-auto overflow-x-hidden justify-center items-center w-full md:inset-0 md:h-full">
       <div className="p-4 w-full max-w-md h-full md:h-auto m-auto">
-        {opd.status !== "Start" ? (
+        {opd?.status !== "Start" ? (
           <div className="p-4 text-center bg-white rounded-lg shadow  sm:p-5">
             <MdOutlineLocalHospital className="m-auto text-5xl text-blue-600" />
             <p className="mb-4 text-gray-500 mt-10">
