@@ -9,6 +9,7 @@ import AssignDoctorModal from "../add.doctor";
 import { Doctor } from "@/interfaces/doctor";
 import AddOPDModal from "../add.opd";
 import { Department } from "@/interfaces/department";
+import OpdStatusModal from "../change.status";
 
 interface OPDListProps {
   data: Opd[];
@@ -16,11 +17,28 @@ interface OPDListProps {
   departments: Department[];
 }
 
+const statusBg = {
+  Start: "bg-green-500",
+  Idle: "bg-yellow-400",
+  Stopped: "bg-red-500",
+  Closed: "bg-blue-500",
+};
+
 const OPDList: FC<OPDListProps> = ({ data, doctors, departments }) => {
   const [opd, setOpds] = useState(data);
-  const [opdId, setOpdId] = useState<string | null>(null);
+  const [isOpen, setOpen] = useState(false);
+  const [opdId, setOpdId] = useState<string>("");
 
   const today = new Date().toISOString().split("T")[0];
+
+  const handleOpen = () => {
+    setOpen((prev) => !prev);
+  };
+
+  const handleStatusChange = (id: string) => {
+    setOpdId(id);
+    handleOpen();
+  };
 
   return (
     <>
@@ -63,8 +81,17 @@ const OPDList: FC<OPDListProps> = ({ data, doctors, departments }) => {
                       <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 ">
                         {item?.doctor?.mobile}
                       </Table.Cell>
-                      <Table.Cell className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 ">
-                        {item?.status}
+                      <Table.Cell
+                        className="whitespace-nowrap p-4 text-sm font-normal text-gray-900 cursor-pointer"
+                        onClick={() => handleStatusChange(item._id)}
+                      >
+                        <span
+                          className={`${
+                            statusBg[item.status]
+                          } px-3 py-1 rounded-full text-white`}
+                        >
+                          {item?.status}
+                        </span>
                       </Table.Cell>
                       <Table.Cell>
                         {item.date.split("T")[0] === today ? (
@@ -98,6 +125,13 @@ const OPDList: FC<OPDListProps> = ({ data, doctors, departments }) => {
         draggable
         pauseOnHover
         theme="light"
+      />
+
+      <OpdStatusModal
+        setOpds={setOpds}
+        id={opdId}
+        isOpen={isOpen}
+        handleOpen={handleOpen}
       />
     </>
   );

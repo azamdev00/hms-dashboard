@@ -6,7 +6,7 @@ import useUserStore from "@/store/user";
 import { LoginSchema } from "@/validations/login";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { Button, Card, Label } from "flowbite-react";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -35,7 +35,7 @@ const Login = function () {
   const handleLogin = async (postdata: LoginModal) => {
     setJwt("logged_out");
 
-    const id = toast.loading("Loggin in...");
+    const id = toast.loading("Logging in...");
     const data: ResponseObject = await fetchAPIPOSTRequest(
       "auth/login",
       postdata
