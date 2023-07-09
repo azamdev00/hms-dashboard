@@ -33,7 +33,10 @@ const AdminLayout: FC<PropsWithChildren<NavbarSidebarLayoutProps>> = ({
 }) => {
   const [jwt] = useCookie("polyclinic");
 
-  if (!jwt || jwt === "logged_out") redirect("/login");
+  // if (!jwt || jwt === "logged_out") {
+  //   console.log("Redirect ================ ");
+  //   redirect("/login");
+  // }
   return (
     <>
       <Header />

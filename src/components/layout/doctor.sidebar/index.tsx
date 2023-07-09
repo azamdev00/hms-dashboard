@@ -35,6 +35,16 @@ const DoctorSidebar: FC = function () {
             </Sidebar.Item>
 
             <Sidebar.Item
+              href="/doctor/patients"
+              icon={HiChartPie}
+              className={
+                "/doctor/patients" === currentPage ? "bg-gray-100" : ""
+              }
+            >
+              Patients
+            </Sidebar.Item>
+
+            <Sidebar.Item
               href="/doctor/profile"
               icon={CgProfile}
               className={"/doctor/profile" === currentPage ? "bg-gray-100" : ""}

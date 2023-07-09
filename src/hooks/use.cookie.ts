@@ -1,3 +1,4 @@
+"use clients";
 import { Dispatch, SetStateAction, useState } from "react";
 
 type objectOrString = object | string;
