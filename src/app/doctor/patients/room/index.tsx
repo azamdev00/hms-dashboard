@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "flowbite-react";
 import { FC } from "react";
+import AddPrescriptionModal from "../add.prescription";
 
 interface RoomProps {}
 
@@ -30,7 +31,10 @@ const Room: FC<RoomProps> = ({}) => {
       <div className="block items-center justify-between border-b border-gray-200 bg-white p-4 m-4 rounded">
         <div className="">
           <h1 className="text-lg font-bold">Prescriptions</h1>
-          <div></div>
+          <div className="flex space-x-4 mt-4">
+            <AddPrescriptionModal />
+            <Button color={"purple"}>Add Diagnose</Button>
+          </div>
         </div>
       </div>
     </div>
