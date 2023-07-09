@@ -2,6 +2,7 @@
 import type { FC } from "react";
 import { ResponseObject } from "@/interfaces/response";
 import { cookies } from "next/headers";
+import Room from "./room";
 
 const getData = async (token: string | undefined) => {
   const res = await fetch(
@@ -37,6 +38,7 @@ const Dashboard: FC = async () => {
           </div>
         </div>
       </div>
+      <Room />
     </>
   );
 };
