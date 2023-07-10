@@ -1,8 +1,14 @@
-import { FC } from "react";
+import { FC, RefObject } from "react";
+import { FieldArrayWithId } from "react-hook-form";
 
-const PrintPrescription: FC = () => {
+interface PrintProps {
+  fields: FieldArrayWithId<PrescriptionFormData, "medicines", "id">[];
+  printRef: RefObject<HTMLDivElement>;
+}
+
+const PrintPrescription: FC<PrintProps> = ({ fields, printRef }) => {
   return (
-    <div className="h-[11.7in]">
+    <div className="h-[11.7in] hidden" ref={printRef}>
       <div className="flex justify-between items-cneter">
         <div className="p-8">
           <div className="flex flex-col text-blue-900 h-content">
@@ -52,10 +58,15 @@ const PrintPrescription: FC = () => {
 
         <div className="w-5/6 p-6">
           <div className="font-bold text-4xl text-blue-900">Rx</div>
-          <div className="my-4  text-blue-900 text-xl flex justify-between p-4 rounded bg-gray-50">
-            <span> Cefman 250mg </span> <span>Dailay 1 time</span>
-          </div>
-          <div className="my-4  text-blue-900 text-xl flex justify-between p-4 rounded bg-gray-50">
+          {fields.map((item, index) => (
+            <div className="my-4 text-blue-900 text-xl flex justify-between p-4 rounded bg-gray-50">
+              <span>
+                {item.name} {item.dosage}mg
+              </span>
+              <span>{item.instructions}</span>
+            </div>
+          ))}
+          <div className="my-4 text-blue-900 text-xl flex justify-between p-4 rounded bg-gray-50">
             <span> Arinic Fort 200mg </span> <span>Dailay 2 times</span>
           </div>
         </div>
@@ -65,3 +76,14 @@ const PrintPrescription: FC = () => {
 };
 
 export default PrintPrescription;
+
+interface PrescriptionFormData {
+  medicines: Medicine[];
+}
+
+interface Medicine {
+  name: string;
+  grams: number;
+  dosage: string;
+  instructions: string;
+}

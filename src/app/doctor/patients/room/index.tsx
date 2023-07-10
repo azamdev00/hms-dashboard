@@ -1,18 +1,25 @@
 "use client";
 import { Button } from "flowbite-react";
-import { FC } from "react";
+import { FC, useRef } from "react";
 import { useForm } from "react-hook-form";
 import MedicinesTable from "../table";
+import { useReactToPrint } from "react-to-print";
 
 interface RoomProps {}
 
 const Room: FC<RoomProps> = ({}) => {
+  const componentRef = useRef<HTMLDivElement>(null);
+
   const { register, handleSubmit, control, setValue } =
     useForm<PrescriptionFormData>({
       defaultValues: {
         medicines: [{ dosage: "", grams: 0, instructions: "", name: "" }],
       },
     });
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   return (
     <div>
@@ -21,6 +28,16 @@ const Room: FC<RoomProps> = ({}) => {
           <h1 className="text-xl font-bold">General Medicle</h1>
         </div>
         <div className="flex items-center">
+          <Button
+            color={"purple"}
+            onClick={() => {
+              componentRef.current?.classList.toggle("hidden");
+              handlePrint();
+              componentRef.current?.classList.toggle("hidden");
+            }}
+          >
+            Print
+          </Button>
           <Button color={"success"}>Next</Button>
         </div>
       </div>
@@ -43,6 +60,7 @@ const Room: FC<RoomProps> = ({}) => {
             control={control}
             setValue={setValue}
             register={register}
+            printRef={componentRef}
           />
           <div className="flex space-x-4 mt-4">
             <Button color={"purple"}>Add Diagnose</Button>
