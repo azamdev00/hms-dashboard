@@ -4,6 +4,7 @@ import { FC, useRef } from "react";
 import { useForm } from "react-hook-form";
 import MedicinesTable from "../table";
 import { useReactToPrint } from "react-to-print";
+import { FaPrint } from "react-icons/fa";
 
 interface RoomProps {}
 
@@ -27,15 +28,16 @@ const Room: FC<RoomProps> = ({}) => {
         <div className="flex items-center">
           <h1 className="text-xl font-bold">General Medicle</h1>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center space-x-2">
           <Button
-            color={"purple"}
+            color={"warning"}
             onClick={() => {
               componentRef.current?.classList.toggle("hidden");
               handlePrint();
               componentRef.current?.classList.toggle("hidden");
             }}
           >
+            <FaPrint className="mr-2" />
             Print
           </Button>
           <Button color={"success"}>Next</Button>
