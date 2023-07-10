@@ -1,37 +1,34 @@
 "use client";
 
+import { Medicine, PrescriptionFormData } from "@/interfaces/patient";
 import { Table } from "flowbite-react";
-import { FC, RefObject, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import {
-  useFieldArray,
-  Control,
   UseFormSetValue,
   UseFormRegister,
+  FieldArrayWithId,
+  UseFieldArrayAppend,
+  UseFieldArrayRemove,
 } from "react-hook-form";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import PrintPrescription from "../print";
 
 interface MedinceTableProps {
-  control: Control<PrescriptionFormData, any>;
   register: UseFormRegister<PrescriptionFormData>;
   setValue: UseFormSetValue<PrescriptionFormData>;
-  printRef: RefObject<HTMLDivElement>;
+  fields: FieldArrayWithId<PrescriptionFormData, "medicines", "id">[];
+  append: UseFieldArrayAppend<PrescriptionFormData, "medicines">;
+  remove: UseFieldArrayRemove;
 }
 
 const MedicinesTable: FC<MedinceTableProps> = ({
-  control,
   setValue,
   register,
-  printRef,
+  fields,
+  append,
+  remove,
 }) => {
   const searchRef = useRef<HTMLInputElement>(null);
-  const { fields, append, remove } = useFieldArray<
-    PrescriptionFormData,
-    "medicines"
-  >({
-    control,
-    name: "medicines",
-  });
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<any>([]);
 
@@ -72,16 +69,9 @@ const MedicinesTable: FC<MedinceTableProps> = ({
                   >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                       <div className="mb-4">
-                        <label
-                          htmlFor="medicineSearch"
-                          className="block text-gray-700 font-bold mb-2"
-                        >
-                          Search Medicine
-                        </label>
                         <input
                           type="text"
                           id="medicineSearch"
-                          // name="medicineSearch"
                           onChange={handleSearch}
                           ref={searchRef}
                           className="border border-gray-300 rounded px-3 py-2 w-full"
@@ -105,12 +95,6 @@ const MedicinesTable: FC<MedinceTableProps> = ({
                     </Table.Cell>
                     <Table.Cell>
                       <div className="mb-4">
-                        <label
-                          htmlFor={`medicines[${index}].dosage`}
-                          className="block text-gray-700 font-bold mb-2"
-                        >
-                          Dosage
-                        </label>
                         <input
                           type="number"
                           {...register(`medicines.${index}.dosage`)}
@@ -120,12 +104,6 @@ const MedicinesTable: FC<MedinceTableProps> = ({
                     </Table.Cell>
                     <Table.Cell>
                       <div className="mb-4">
-                        <label
-                          htmlFor={`medicines[${index}].instructions`}
-                          className="block text-gray-700 font-bold mb-2"
-                        >
-                          Instructions
-                        </label>
                         <select
                           id="instructions"
                           {...register(`medicines.${index}.instructions`)}
@@ -173,23 +151,11 @@ const MedicinesTable: FC<MedinceTableProps> = ({
           })}
         </Table.Body>
       </Table>
-      <PrintPrescription fields={fields} printRef={printRef} />
     </>
   );
 };
 
 export default MedicinesTable;
-
-interface PrescriptionFormData {
-  medicines: Medicine[];
-}
-
-interface Medicine {
-  name: string;
-  grams: number;
-  dosage: string;
-  instructions: string;
-}
 
 const initialMedicine: Medicine = {
   name: "",

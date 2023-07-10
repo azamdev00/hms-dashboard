@@ -1,10 +1,13 @@
 "use client";
 import { Button } from "flowbite-react";
 import { FC, useRef } from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import MedicinesTable from "../table";
 import { useReactToPrint } from "react-to-print";
 import { FaPrint } from "react-icons/fa";
+import PrintPrescription from "../print";
+import { PrescriptionFormData } from "@/interfaces/patient";
+import DiagnoseTable from "../diagnose";
 
 interface RoomProps {}
 
@@ -15,8 +18,23 @@ const Room: FC<RoomProps> = ({}) => {
     useForm<PrescriptionFormData>({
       defaultValues: {
         medicines: [{ dosage: "", grams: 0, instructions: "", name: "" }],
+        diagnosis: [{ title: "" }],
       },
     });
+
+  const {
+    fields: diagnoseFields,
+    append: diagnoseAppend,
+    remove: diagnoseRemove,
+  } = useFieldArray<PrescriptionFormData, "diagnosis", "id">({
+    control,
+    name: "diagnosis",
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "medicines",
+  });
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -57,43 +75,30 @@ const Room: FC<RoomProps> = ({}) => {
       </div>
       <div className="block items-center justify-between border-b border-gray-200 bg-white p-4 m-4 rounded">
         <div className="">
-          <h1 className="text-lg font-bold">Prescriptions</h1>
-          <MedicinesTable
-            control={control}
-            setValue={setValue}
+          <h1 className="text-lg font-bold">Diagnosis</h1>
+          <DiagnoseTable
             register={register}
-            printRef={componentRef}
+            fields={diagnoseFields}
+            remove={diagnoseRemove}
+            append={diagnoseAppend}
           />
-          <div className="flex space-x-4 mt-4">
-            <Button color={"purple"}>Add Diagnose</Button>
-          </div>
         </div>
       </div>
+      <div className="block items-center justify-between border-b border-gray-200 bg-white p-4 m-4 rounded">
+        <div className="">
+          <h1 className="text-lg font-bold">Prescriptions</h1>
+          <MedicinesTable
+            setValue={setValue}
+            register={register}
+            fields={fields}
+            remove={remove}
+            append={append}
+          />
+        </div>
+      </div>
+      <PrintPrescription fields={fields} printRef={componentRef} />
     </div>
   );
 };
 
 export default Room;
-
-interface PrescriptionFormData {
-  medicines: Medicine[];
-}
-
-interface Medicine {
-  name: string;
-  grams: number;
-  dosage: string;
-  instructions: string;
-}
-
-const initialMedicine: Medicine = {
-  name: "",
-  grams: 0,
-  dosage: "",
-  instructions: "",
-};
-const medicines: Medicine[] = [
-  { name: "Medicine A", grams: 0, dosage: "", instructions: "" },
-  { name: "Medicine B", grams: 0, dosage: "", instructions: "" },
-  { name: "Medicine C", grams: 0, dosage: "", instructions: "" },
-];
