@@ -1,8 +1,7 @@
 "use client";
 import { Button } from "flowbite-react";
 import { FC } from "react";
-import AddPrescriptionModal from "../add.prescription";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import MedicinesTable from "../table";
 
 interface RoomProps {}
@@ -46,12 +45,6 @@ const Room: FC<RoomProps> = ({}) => {
             register={register}
           />
           <div className="flex space-x-4 mt-4">
-            {/* <AddPrescriptionModal
-              append={append}
-              index={fields.length}
-              register={register}
-              setValue={setValue}
-            /> */}
             <Button color={"purple"}>Add Diagnose</Button>
           </div>
         </div>
