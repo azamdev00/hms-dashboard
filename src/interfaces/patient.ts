@@ -12,9 +12,14 @@ export interface Patient {
 export interface PrescriptionFormData {
   diagnosis: Diagnose[];
   medicines: Medicine[];
+  tests: Tests[];
 }
 
 export interface Diagnose {
+  title: string;
+}
+
+export interface Tests {
   title: string;
 }
 

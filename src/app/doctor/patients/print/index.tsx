@@ -1,12 +1,20 @@
+import { PrescriptionFormData } from "@/interfaces/patient";
 import { FC, RefObject } from "react";
 import { FieldArrayWithId } from "react-hook-form";
 
 interface PrintProps {
-  fields: FieldArrayWithId<PrescriptionFormData, "medicines", "id">[];
+  medicinefields: FieldArrayWithId<PrescriptionFormData, "medicines", "id">[];
+  testsfields: FieldArrayWithId<PrescriptionFormData, "tests", "id">[];
+  diagnosefields: FieldArrayWithId<PrescriptionFormData, "diagnosis", "id">[];
   printRef: RefObject<HTMLDivElement>;
 }
 
-const PrintPrescription: FC<PrintProps> = ({ fields, printRef }) => {
+const PrintPrescription: FC<PrintProps> = ({
+  medicinefields,
+  printRef,
+  testsfields,
+  diagnosefields,
+}) => {
   return (
     <div className="h-[11.7in] hidden" ref={printRef}>
       <div className="flex justify-between items-cneter">
@@ -41,24 +49,38 @@ const PrintPrescription: FC<PrintProps> = ({ fields, printRef }) => {
               Dignosis
             </div>
 
-            <div className="text-blue-900 px-6 my-4 p-2 rounded-xl bg-blue-50">
-              Pharyngitis
-            </div>
+            {diagnosefields.map((item, index) => (
+              <div
+                className={`text-blue-900 px-6 my-4 p-2 rounded-xl bg-blue-50 ${
+                  item.title === "" && "hidden"
+                }`}
+                key={index}
+              >
+                {item.title}
+              </div>
+            ))}
           </div>
           <div className="h-2/3">
-            <div className="text-white rounded-lg px-4 py-2 text-xl w-full bg-blue-900">
+            <div className="text-white rounded-lg px-4 py-2 text-xl w-full bg-blue-900 ">
               Lab Test
             </div>
 
-            <div className="text-blue-900 px-6 my-4 p-2 bg-blue-50 rounded-lg">
-              CBC
-            </div>
+            {testsfields.map((item, index) => (
+              <div
+                className={`text-blue-900 px-6 my-4 p-2 bg-blue-50 rounded-lg ${
+                  item.title === "" && "hidden"
+                }`}
+                key={index}
+              >
+                {item.title}
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="w-5/6 p-6">
           <div className="font-bold text-4xl text-blue-900">Rx</div>
-          {fields.map((item, index) => (
+          {medicinefields.map((item, index) => (
             <div className="my-4 text-blue-900 text-xl flex justify-between p-4 rounded bg-gray-50">
               <span>
                 {item.name} {item.dosage}mg
@@ -66,9 +88,6 @@ const PrintPrescription: FC<PrintProps> = ({ fields, printRef }) => {
               <span>{item.instructions}</span>
             </div>
           ))}
-          <div className="my-4 text-blue-900 text-xl flex justify-between p-4 rounded bg-gray-50">
-            <span> Arinic Fort 200mg </span> <span>Dailay 2 times</span>
-          </div>
         </div>
       </div>
     </div>
@@ -76,14 +95,3 @@ const PrintPrescription: FC<PrintProps> = ({ fields, printRef }) => {
 };
 
 export default PrintPrescription;
-
-interface PrescriptionFormData {
-  medicines: Medicine[];
-}
-
-interface Medicine {
-  name: string;
-  grams: number;
-  dosage: string;
-  instructions: string;
-}
