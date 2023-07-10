@@ -2,10 +2,19 @@
 import { Button } from "flowbite-react";
 import { FC } from "react";
 import AddPrescriptionModal from "../add.prescription";
+import { useFieldArray, useForm } from "react-hook-form";
+import MedicinesTable from "../table";
 
 interface RoomProps {}
 
 const Room: FC<RoomProps> = ({}) => {
+  const { register, handleSubmit, control, setValue } =
+    useForm<PrescriptionFormData>({
+      defaultValues: {
+        medicines: [{ dosage: "", grams: 0, instructions: "", name: "" }],
+      },
+    });
+
   return (
     <div>
       <div className="flex items-center justify-between border-b border-gray-200 bg-white p-4 m-4 rounded">
@@ -31,8 +40,18 @@ const Room: FC<RoomProps> = ({}) => {
       <div className="block items-center justify-between border-b border-gray-200 bg-white p-4 m-4 rounded">
         <div className="">
           <h1 className="text-lg font-bold">Prescriptions</h1>
+          <MedicinesTable
+            control={control}
+            setValue={setValue}
+            register={register}
+          />
           <div className="flex space-x-4 mt-4">
-            <AddPrescriptionModal />
+            {/* <AddPrescriptionModal
+              append={append}
+              index={fields.length}
+              register={register}
+              setValue={setValue}
+            /> */}
             <Button color={"purple"}>Add Diagnose</Button>
           </div>
         </div>
@@ -42,3 +61,26 @@ const Room: FC<RoomProps> = ({}) => {
 };
 
 export default Room;
+
+interface PrescriptionFormData {
+  medicines: Medicine[];
+}
+
+interface Medicine {
+  name: string;
+  grams: number;
+  dosage: string;
+  instructions: string;
+}
+
+const initialMedicine: Medicine = {
+  name: "",
+  grams: 0,
+  dosage: "",
+  instructions: "",
+};
+const medicines: Medicine[] = [
+  { name: "Medicine A", grams: 0, dosage: "", instructions: "" },
+  { name: "Medicine B", grams: 0, dosage: "", instructions: "" },
+  { name: "Medicine C", grams: 0, dosage: "", instructions: "" },
+];
