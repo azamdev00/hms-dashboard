@@ -9,11 +9,16 @@ import PrintPrescription from "../print";
 import { PrescriptionFormData } from "@/interfaces/patient";
 import DiagnoseTable from "../diagnose";
 import TestsTable from "../tests";
+import { Opd } from "@/interfaces/opd";
 
-interface RoomProps {}
+interface RoomProps {
+  data: any;
+}
 
-const Room: FC<RoomProps> = ({}) => {
+const Room: FC<RoomProps> = ({ data }) => {
   const componentRef = useRef<HTMLDivElement>(null);
+
+  console.log(data);
 
   const { register, handleSubmit, control, setValue } =
     useForm<PrescriptionFormData>({
@@ -51,6 +56,15 @@ const Room: FC<RoomProps> = ({}) => {
     content: () => componentRef.current,
   });
 
+  if (!data?.status || (data && data.status === "Closed"))
+    return (
+      <div className="flex items-center justify-between border-b border-gray-200 bg-white p-4 m-4 rounded">
+        <div className="flex items-center">
+          <h1 className="text-xl font-bold">You Don't have any opd assigned</h1>
+        </div>
+      </div>
+    );
+
   return (
     <div>
       <div className="flex items-center justify-between border-b border-gray-200 bg-white p-4 m-4 rounded">
@@ -74,14 +88,16 @@ const Room: FC<RoomProps> = ({}) => {
       </div>
       <div className="block items-center justify-between border-b border-gray-200 bg-white p-4 m-4 rounded">
         <div className="grid grid-cols-3 space-y-1">
-          <div>Name: Azam Dildar</div>
-          <div>Father Name: Dildar</div>
-          <div>Gender : Male</div>
-          <div>CINC : 12345-1234567-1</div>
-          <div>Visit ID : 12345678</div>
-          <div>MRN : 12345678</div>
-          <div>Address : Mansehra</div>
-          <div>Date : 12-12-12</div>
+          <div>
+            Name: {data?.patient?.firstName + " " + data?.patient?.lastName}{" "}
+          </div>
+          <div>Father Name: {data?.patient.fatherName}</div>
+          <div>Gender : {data?.patient?.gender} </div>
+          <div>CINC : {data?.patient?.cnic} </div>
+          <div>Visit ID : {data?.appointment?._id}</div>
+          <div>MRN : {data?.patient?._id}</div>
+          <div>Address : {data?.patient?.city}</div>
+          <div>Date : {new Date().toISOString().split("T")[0]} </div>
         </div>
       </div>
       <div className="block items-center justify-between border-b border-gray-200 bg-white p-4 m-4 rounded">

@@ -11,8 +11,6 @@ interface JoinOpdProps {
 }
 
 const JoinOpd: FC<JoinOpdProps> = ({ opd }) => {
-  console.log(opd);
-
   const handleJoinOpd = async () => {
     const id = toast.loading("Joining OPD");
     const data: ResponseObject = await fetchAPIPOSTRequest(
@@ -54,6 +52,15 @@ const JoinOpd: FC<JoinOpdProps> = ({ opd }) => {
 
     // }
   };
+
+  if (!opd?.status || (opd && opd.status === "Closed"))
+    return (
+      <div className="flex items-center justify-between border-b border-gray-200 bg-white p-4 m-4 rounded">
+        <div className="flex items-center">
+          <h1 className="text-xl font-bold">You Don't have any opd assigned</h1>
+        </div>
+      </div>
+    );
 
   return (
     <div className="overflow-y-auto overflow-x-hidden justify-center items-center w-full md:inset-0 md:h-full">

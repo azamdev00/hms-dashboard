@@ -25,7 +25,7 @@ const Dashboard: FC = async () => {
   const cookieStore = cookies();
   const cookie = cookieStore.get("polyclinic");
 
-  //   const data = await getData(cookie?.value);
+  const data = await getData(cookie?.value);
 
   return (
     <>
@@ -38,7 +38,7 @@ const Dashboard: FC = async () => {
           </div>
         </div>
       </div>
-      <Room />
+      <Room data={data} />
     </>
   );
 };

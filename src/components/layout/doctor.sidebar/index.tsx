@@ -2,7 +2,7 @@ import useCookie from "@/hooks/use.cookie";
 import { Sidebar } from "flowbite-react";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { HiChartPie } from "react-icons/hi";
+import { HiChartPie, HiUsers } from "react-icons/hi";
 import { CgProfile } from "react-icons/cg";
 
 const DoctorSidebar: FC = function () {
@@ -36,7 +36,7 @@ const DoctorSidebar: FC = function () {
 
             <Sidebar.Item
               href="/doctor/patients"
-              icon={HiChartPie}
+              icon={HiUsers}
               className={
                 "/doctor/patients" === currentPage ? "bg-gray-100" : ""
               }

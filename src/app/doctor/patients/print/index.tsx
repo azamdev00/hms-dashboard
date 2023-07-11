@@ -81,7 +81,10 @@ const PrintPrescription: FC<PrintProps> = ({
         <div className="w-5/6 p-6">
           <div className="font-bold text-4xl text-blue-900">Rx</div>
           {medicinefields.map((item, index) => (
-            <div className="my-4 text-blue-900 text-xl flex justify-between p-4 rounded bg-gray-50">
+            <div
+              className="my-4 text-blue-900 text-xl flex justify-between p-4 rounded bg-gray-50"
+              key={index}
+            >
               <span>
                 {item.name} {item.dosage}mg
               </span>

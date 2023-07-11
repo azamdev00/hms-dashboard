@@ -3,7 +3,7 @@ import { Doctor } from "@/interfaces/doctor";
 import { Table } from "flowbite-react";
 import { FC, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import EditDoctorModal from "../edit";
+// import EditDoctorModal from "../edit";
 import DeleteDoctorModal from "../delete";
 import AddDoctorModal from "../add";
 import { ToastContainer } from "react-toastify";
@@ -54,7 +54,7 @@ const DoctorList: FC<DoctorListProps> = ({ data }) => {
                       </Table.Cell>
                       <Table.Cell>
                         <div className="flex items-center gap-x-3 whitespace-nowrap">
-                          <EditDoctorModal />
+                          {/* <EditDoctorModal /> */}
                           <DeleteDoctorModal />
                         </div>
                       </Table.Cell>
